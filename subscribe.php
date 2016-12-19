@@ -17,9 +17,9 @@ if (is_resource($process)) {
         }
         $sep = explode("\n",$s);
         preg_match("/^.*?\/(.*?)\/(.*?) (.*?)$/",$sep[0],$matches);
-        $json->$matches[1]->$matches[2]->$matches[3] = date("Y-m-d H:i:s");
+        $json->$matches[1]->$matches[2] = date("Y-m-d H:i:s");
         file_put_contents(__DIR__."/devices.txt",json_encode($json, JSON_PRETTY_PRINT));
-//        echo "Topic: {$matches[1]}\nValue: {$matches[2]}\n\n";
+        echo "Topic: {$matches[1]}\nValue: {$matches[2]}\n\n";
         flush();
     }
 }
