@@ -5,7 +5,6 @@ $directory = "..";
 
 $contents = file_get_contents("devices.txt");
 $json = json_decode($contents);
-
 $binarySensors = array(
     "beacon"=>array(
         "payload_on"=>"present",
@@ -141,8 +140,9 @@ foreach ($json as $each => $properties){
         $sensor['payload_unlock'] = "unlocked";
         $all['lock']["locks.yaml"][] = $sensor;
     }
+
     //MQTT Garage Door
-    if (isset($properties->door)){
+    if (isset($properties->door) && isset($properties->contact)){
         $sensor = array();
         $sensor['platform'] = "mqtt";
         $sensor['name'] = $each;
@@ -154,8 +154,7 @@ foreach ($json as $each => $properties){
         $sensor['state_closed'] = "closed";
         $sensor['service_open'] = "open";
         $sensor['service_close'] = "close";
-        $all['garage_door']["garageDoor.yaml"][] = $sensor;
-        unset($each);
+        $all['cover']["garageDoor.yaml"][] = $sensor;
     }
     //MQTT Sensor
     foreach ($basicSensors as $sensorName => $sensorProperties){
@@ -188,7 +187,6 @@ foreach ($json as $each => $properties){
         }
     }
 }
-
 foreach ($all as $type => $files){
     $i = 0;
     foreach ($files as $filename => $filecontents){
