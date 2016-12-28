@@ -88,7 +88,7 @@ foreach ($json as $each => $properties){
     $item['retain'] = true;
     //MQTT Fan
     if(strpos($each,"Fan") !== false){
-        $item['name'] = "Fan - ".$item['name'];
+        $item['name'] = $item['name'];
         $item['state_topic'] = "smartthings/$each/switch";
         $item['command_topic'] = "smartthings/$each/level";
         $item['speed_state_topic'] = "smartthings/$each/level";
@@ -165,7 +165,7 @@ foreach ($json as $each => $properties){
         if (isset($properties->$sensorName)){
             $sensor = array();
             $sensor['platform'] = "mqtt";
-            $sensor['name'] = $sensorName." - ".$each;
+            $sensor['name'] = ucfirst($sensorName)." - ".$each;
             $sensor['retain'] = true;
             $sensor['state_topic'] = "smartthings/$each/$sensorName";
             if (is_array($sensorProperties)) {
@@ -181,7 +181,7 @@ foreach ($json as $each => $properties){
         if (isset($properties->$sensorName)){
             $sensor = array();
             $sensor['platform'] = "mqtt";
-            $sensor['name'] = $sensorName." - ".$each;
+            $sensor['name'] = ucfirst($sensorName)." - ".$each;
             $sensor['retain'] = true;
             $sensor['state_topic'] = "smartthings/$each/$sensorName";
             foreach ($sensorProperties as $sensorProperty => $sensorValue){
