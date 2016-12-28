@@ -101,9 +101,10 @@ foreach ($json as $each => $properties){
     }
     //MQTT Light
     if (isset($properties->switch)){
-        $item['name'] = "Light - ".$item['name'];
+        $item['name'] = "Switch - ".$item['name'];
         //is a dimmable light switch
         if (isset($properties->level)) {
+            $item['name'] = "Dimmer - ".$item['name'];
             $item['brightness_state_topic'] = "smartthings/$each/level";
             $item['brightness_command_topic'] = "smartthings/$each/level";
             $item['brightness_scale'] = "100";
@@ -111,6 +112,7 @@ foreach ($json as $each => $properties){
             $item['payload_off'] = "off";
         }
         if (isset($properties->color)) {
+            $item['name'] = "Color Light - ".$item['name'];
             $item['rgb_state_topic'] = "smartthings/$each/color";
             $item['rgb_command_topic'] = "smartthings/$each/color";
         }
@@ -163,7 +165,7 @@ foreach ($json as $each => $properties){
         if (isset($properties->$sensorName)){
             $sensor = array();
             $sensor['platform'] = "mqtt";
-            $sensor['name'] = $properties->$sensorName." - ".$each;
+            $sensor['name'] = $sensorName." - ".$each;
             $sensor['retain'] = true;
             $sensor['state_topic'] = "smartthings/$each/$sensorName";
             if (is_array($sensorProperties)) {
