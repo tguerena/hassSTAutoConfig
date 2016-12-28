@@ -30,7 +30,14 @@ if ((isset($options['help']) || isset($options['h'])) || ((!empty($options['i'])
     );
     flush();
     $process = proc_open($cmd, $descriptorspec, $pipes, realpath('./'), array());
+    $time_start = microtime(true);
     while ($s = fgets($pipes[1])) {
+        $time_end = microtime(true);
+        $time = $time_end - $time_start;
+        if ($time >= 1) {
+            exit;
+        }
+
         echo $s;
     }
 }
