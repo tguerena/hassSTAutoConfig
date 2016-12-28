@@ -179,7 +179,7 @@ foreach ($json as $each => $properties){
         if (isset($properties->$sensorName)){
             $sensor = array();
             $sensor['platform'] = "mqtt";
-            $sensor['name'] = $properties->$sensorName." - ".$each;
+            $sensor['name'] = $sensorName." - ".$each;
             $sensor['retain'] = true;
             $sensor['state_topic'] = "smartthings/$each/$sensorName";
             foreach ($sensorProperties as $sensorProperty => $sensorValue){
