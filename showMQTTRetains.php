@@ -14,13 +14,13 @@ $longopts  = array(
 );
 
 $options = getopt($shortopts, $longopts);
-if ((isset($options['help']) || isset($options['h'])) || ((filter_var($options['i'], FILTER_VALIDATE_IP) === false) && (filter_var($options['ip'], FILTER_VALIDATE_IP) === false))){
+if ((isset($options['help']) || isset($options['h'])) || ((!empty($options['i']) && filter_var($options['i'], FILTER_VALIDATE_IP) === false) && (!empty($options['ip']) && filter_var($options['ip'], FILTER_VALIDATE_IP) === false))){
     echo "\nThis tool is used to check the retains stored in MQTT Server. Use clearRetains to clear all retains to start fresh.
     -i IP address of MQTT Server (can also use --ip) [!REQUIRED]
     -p Port number of MQTT Server (can also use --port) [No entry will default to port 8883]
     ";
 } else {
-    $ip = !filter_var($options['i'], FILTER_VALIDATE_IP) === false ? $options['i'] : $options['ip'];
+    $ip = !empty($options['i']) && !filter_var($options['i'], FILTER_VALIDATE_IP) === false ? $options['i'] : $options['ip'];
     $cmd = "mosquitto_sub -h $ip -t 'smartthings/#' -v";
     $cmd .= !empty($options['p']) ? "-p ".$options['p'] : !empty($options['port']) ? "-p ".$options['port'] : "";
     $descriptorspec = array(
