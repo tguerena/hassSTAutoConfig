@@ -20,7 +20,7 @@ if ((isset($options['help']) || isset($options['h'])) || ((filter_var($options['
     -p Port number of MQTT Server (can also use --port) [No entry will default to port 8883]
     ";
 } else {
-    $ip = filter_var($options['i'], FILTER_VALIDATE_IP) === false ? $options['i'] : $options['ip'];
+    $ip = !filter_var($options['i'], FILTER_VALIDATE_IP) === false ? $options['i'] : $options['ip'];
     $cmd = "mosquitto_sub -h $ip -t 'smartthings/#' -v";
     $cmd .= !empty($options['p']) ? "-p ".$options['p'] : !empty($options['port']) ? "-p ".$options['port'] : "";
     $descriptorspec = array(
