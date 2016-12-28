@@ -1,8 +1,15 @@
-<?php 
+<?php
 //Configurables
-$directory = "..";
-//End of Configurables
 
+$directory = "testconfig";
+
+// Changes will be written to the testconfig folder.
+
+// Uncomment the following line and comment the above - testconfig line so changes are written directly to your config files
+
+//    $directory = "..";
+
+//End of Configurables
 $contents = file_get_contents("devices.txt");
 $json = json_decode($contents);
 $binarySensors = array(
