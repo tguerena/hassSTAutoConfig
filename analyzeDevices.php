@@ -1,16 +1,22 @@
 <?php
 //Configurables
 
-$directory = "testconfig";
-
-// Changes will be written to the testconfig folder.
-
-// Uncomment the following line and comment the above - testconfig line so changes are written directly to your config files
-
-//    $directory = "..";
+foreach ($argv as $arg){
+    if (preg_match('/--directory=(.*)/',$arg,$match)){
+        $directory = trim($match[1]);
+    }
+    if (preg_match('/--help/',$arg,$match)){
+        echo "Usage: php analyzeDevices.php --directory=..\n";
+        exit;
+    }
+}
+if (empty($directory)){
+    echo "You need to specify a directory for your home assistant configuration files";
+    exit;
+}
 
 //End of Configurables
-$contents = file_get_contents("devices.txt");
+$contents = file_get_contents("devices.json");
 $json = json_decode($contents);
 $binarySensors = array(
     "beacon"=>array(
@@ -82,6 +88,7 @@ $basicSensors = array(
     "thermostatMode"=>"",
     "thermostatOperatingState"=>"",
     "thermostatSetpoint"=>"",
+    "timeRemaining"=>"",
     "touch"=>"",
     "trackData"=>"",
     "trackDescription"=>"",
