@@ -46,5 +46,6 @@ To run it as a deamon add nohup to the beginning and & to the end:
 Your devices should now be available in Home Assistant
 You can modify any of the files it created and as long as you modify above or below where it tells you, your changes will remain.
 
+
 Contribute to my expensive home automation habit:
-paypal.me/Troy84
+[PayPal Donation](https://www.paypal.me/Troy84/5)
